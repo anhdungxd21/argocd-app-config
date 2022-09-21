@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp-argo-application
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/argoproj/argocd-example-apps.git
+    targetRevision: HEAD
+    path: dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: myapp
+  
+  syncPolicy:
+    syncOption:
+    - CreateNamespace=true
+
+    automated:
+      # = ensures that the namespace specified exist in the destination cluster
+      selfHeal: true
+
+      # 1) Enable automatic sync (default it turn off)
+      automated:
+        # 2) Enable automatic self-healing - By default, changes made to the live cluster will not trigger automated sync
+        selfHeal: true
+        # 3) Enable automatic pruning - By default, automatic sync will not delete resources
+        prune: true
