@@ -18,13 +18,9 @@ spec:
     syncOptions:
     - CreateNamespace=true
 
+    # 1) Enable automatic sync (default it turn off)
     automated:
-      # = ensures that the namespace specified exist in the destination cluster
+      # 2) Enable automatic self-healing - By default, changes made to the live cluster will not trigger automated sync
       selfHeal: true
-
-      # 1) Enable automatic sync (default it turn off)
-      automated:
-        # 2) Enable automatic self-healing - By default, changes made to the live cluster will not trigger automated sync
-        selfHeal: true
-        # 3) Enable automatic pruning - By default, automatic sync will not delete resources
-        prune: true
+      # 3) Enable automatic pruning - By default, automatic sync will not delete resources
+      prune: true
